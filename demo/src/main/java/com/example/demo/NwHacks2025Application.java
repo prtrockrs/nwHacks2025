@@ -10,4 +10,5 @@ public class NwHacks2025Application {
 		SpringApplication.run(NwHacks2025Application.class, args);
 	}
 
+    
 }
