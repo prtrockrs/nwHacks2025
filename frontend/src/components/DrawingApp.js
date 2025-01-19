@@ -14,9 +14,14 @@ const DrawingApp = () => {
     const ctx = canvas.getContext("2d");
 
     const resizeCanvas = () => {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
       const wrapper = wrapperRef.current;
       canvas.width = wrapper.clientWidth * 0.95;
       canvas.height = wrapper.clientHeight * 0.9;
+
+      ctx.putImageData(imageData, 0, 0);
+      
       ctx.lineWidth = strokeSize;
       ctx.lineCap = "round";
       ctx.strokeStyle = strokeColor;
@@ -85,7 +90,9 @@ const DrawingApp = () => {
   };
 
   const shareDrawing = () => {
-    const userResponse = window.confirm("Do you want to send your drawing to the garden?");
+    const userResponse = window.confirm(
+      "Do you want to send your drawing to the garden?"
+    );
     if (userResponse) {
       const canvas = canvasRef.current;
       const dataURL = canvas.toDataURL();
@@ -100,7 +107,9 @@ const DrawingApp = () => {
           if (response.ok) {
             alert("Your drawing is now in the garden!");
           } else {
-            alert("Failed to send the drawing to the garden. Please try again.");
+            alert(
+              "Failed to send the drawing to the garden. Please try again."
+            );
           }
         })
         .catch(() => {
