@@ -21,7 +21,7 @@ const DrawingApp = () => {
       canvas.height = wrapper.clientHeight * 0.9;
 
       ctx.putImageData(imageData, 0, 0);
-      
+
       ctx.lineWidth = strokeSize;
       ctx.lineCap = "round";
       ctx.strokeStyle = strokeColor;
@@ -141,7 +141,7 @@ const DrawingApp = () => {
             type="range"
             id="strokeSize"
             min="1"
-            max="20"
+            max="50"
             value={strokeSize}
             onChange={(e) => setStrokeSize(Number(e.target.value))}
           />
