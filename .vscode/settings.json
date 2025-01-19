@@ -7,7 +7,7 @@
             },
             "previewLimit": 50,
             "server": "localhost",
-            "port": 3000,
+            "port": 3001,
             "driver": "MySQL",
             "name": "Garden Connection",
             "database": "garden_base",

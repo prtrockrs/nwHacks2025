@@ -10,7 +10,7 @@ class DatabaseConnectionTest {
 
     @Test
     void testDatabaseConnection() {
-        String url = "jdbc:mysql://localhost:3000/garden_base";
+        String url = "jdbc:mysql://localhost:3001/garden_base";
         String username ="root";
         String password ="";
 
