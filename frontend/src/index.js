@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-        <Route path="/Canvas" element={<Canvas />}></Route>
+        <Route path="/" element={<Canvas />}></Route>
         <Route path="/Garden" element={<Garden />}></Route>
     </Routes>
   </BrowserRouter>

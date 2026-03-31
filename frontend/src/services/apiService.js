@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:8080';
 
 export const getMessages = async () => {
     try {
-        const response = await axios.get(`${API_URL}/hello`);
+        const response = await axios.get(`${API_URL}/garden`);
         return response.data;
     } catch (error) {
         console.error('Error fetching messages:', error);
@@ -14,7 +14,7 @@ export const getMessages = async () => {
 
 export const saveMessage = async (content) => {
     try {
-        const response = await axios.post(`${API_URL}/hello`, { content });
+        const response = await axios.post(`${API_URL}/garden`, { content });
         return response.data;
     } catch (error) {
         console.error('Error saving message:', error);

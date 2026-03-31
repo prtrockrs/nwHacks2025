@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import "./DrawingApp.css"; // External CSS file for styling
+import "./DrawingApp.css";
+import { Link } from "react-router-dom";
 
 const DrawingApp = () => {
   const canvasRef = useRef(null);
@@ -90,34 +91,31 @@ const DrawingApp = () => {
   };
 
   const shareDrawing = () => {
-    const userResponse = window.confirm(
-      "Do you want to send your drawing to the garden?"
-    );
-    if (userResponse) {
-      const canvas = canvasRef.current;
-      const dataURL = canvas.toDataURL();
-      fetch("https://example.com/garden", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ image: dataURL }),
-      })
-        .then((response) => {
-          if (response.ok) {
-            alert("Your drawing is now in the garden!");
-          } else {
-            alert(
-              "Failed to send the drawing to the garden. Please try again."
-            );
-          }
-        })
-        .catch(() => {
-          alert("An error occurred while sending the drawing to the garden.");
-        });
-    } else {
-      alert("Your drawing stays on this page.");
-    }
+    const userResponse = window.confirm("Do you want to send your drawing to the garden?");
+	if (!userResponse) return alert("Your drawing stays on this page.");
+
+	const canvas = canvasRef.current;
+	canvas.toBlob(async (blob) => {
+		const formData = new FormData();
+		formData.append("image", blob, "drawing.png");
+
+		try {
+			const response = await fetch("http://localhost:8080/garden", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (response.ok) {
+				alert("Your drawing is now in the garden!");
+				window.location.reload();
+			} else {
+				alert("Failed to send the drawing to the garden. Please try again.");
+			}
+		} catch (err) {
+			console.error(err);
+			alert("An error occurred while sending the drawing to the garden.");
+		}
+	});
   };
 
   return (
@@ -160,6 +158,10 @@ const DrawingApp = () => {
           onTouchEnd={stopDrawing}
         ></canvas>
       </div>
+
+	  <Link to="/garden" className="button">
+		Visit Garden
+	  </Link>
     </div>
   );
 };
