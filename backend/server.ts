@@ -49,9 +49,14 @@ app.post("/garden", upload.single("image"), async (req, res) => {
   		return res.status(400).json({ success: false, message: "No file uploaded" });
 	}
 
+	const message = req.body.message;
+	if (!message) {
+		return res.status(400).json({ success: false, message: "No message provided" });
+	}
+
 	try {
 		await db.execute(
-		"INSERT INTO flowers (image_path) VALUES (?)", [imagePath]);
+		"INSERT INTO flowers (image_path, message) VALUES (?, ?)", [imagePath, message]);
 		res.json({ success: true });
 	} catch (err: any) {
 		console.error("DB INSERT ERROR:", JSON.stringify(err, null, 2));

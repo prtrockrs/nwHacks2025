@@ -94,10 +94,14 @@ const DrawingApp = () => {
     const userResponse = window.confirm("Do you want to send your drawing to the garden?");
 	if (!userResponse) return alert("Your drawing stays on this page.");
 
+	const userMessage = window.prompt("What message would you like to share?");
+	if (!userMessage) return alert("That's okay, take your time.");
+
 	const canvas = canvasRef.current;
 	canvas.toBlob(async (blob) => {
 		const formData = new FormData();
 		formData.append("image", blob, "drawing.png");
+		formData.append("message", userMessage);
 
 		try {
 			const response = await fetch("http://localhost:8080/garden", {
